@@ -9,6 +9,7 @@ import (
 
 func startRepl() {
 	scanner := bufio.NewScanner(os.Stdin)
+	cfg := &configUrl{}
 	for {
 		scanner.Scan()
 		prompt := scanner.Text()
@@ -16,17 +17,22 @@ func startRepl() {
 		cmdMap := getCommands()
 		command, exists := cmdMap[promptWords[0]]
 		if exists {
-			command.callback()
+			fmt.Println("Pokedex >", command.name)
+			command.callback(cfg)
 		} else {
 			fmt.Print("Command not found")
 		}
 	}
 }
+type configUrl struct {
+	next		*string
+	previous 	*string
+}
 
 type cliCommand struct {
 	name        string
 	description string
-	callback    func() error
+	callback    func(*configUrl) error
 }
 
 func getCommands() map[string]cliCommand {
