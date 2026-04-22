@@ -1,32 +1,31 @@
 package main
 
 import (
-	"net/http"
-	"fmt"
 	"encoding/json"
+	"fmt"
+	"net/http"
 )
 
-
 type location struct {
-	Count    int    `json:"count"`
+	Count    int     `json:"count"`
 	Next     *string `json:"next"`
-	Previous *string    `json:"previous"`
+	Previous *string `json:"previous"`
 	Results  []struct {
 		Name string `json:"name"`
 		URL  string `json:"url"`
 	} `json:"results"`
 }
 
-func commandMap (c *configUrl) error {
+func commandMap(c *configUrl) error {
 	url := "https://pokeapi.co/api/v2/location-area/"
 	if c.next != nil {
 		url = *c.next
 	}
-	
-	req, err := http.NewRequest("GET", url,nil)
+
+	req, err := http.NewRequest("GET", url, nil)
 	if err != nil {
 		fmt.Println("unable to make request")
-		return err 
+		return err
 	}
 
 	client := &http.Client{}
@@ -36,7 +35,7 @@ func commandMap (c *configUrl) error {
 		return err
 	}
 	defer res.Body.Close()
-	
+
 	var loc location
 
 	decoder := json.NewDecoder(res.Body)
@@ -53,7 +52,7 @@ func commandMap (c *configUrl) error {
 	return nil
 }
 
-func commandMapb (c *configUrl) error {
+func commandMapb(c *configUrl) error {
 	var url string
 
 	if c.previous != nil {
@@ -61,12 +60,12 @@ func commandMapb (c *configUrl) error {
 	} else {
 		fmt.Println("you're on the first page")
 		return nil
-	}	
+	}
 
 	req, err := http.NewRequest("GET", url, nil)
 	if err != nil {
 		fmt.Println("unable to make request")
-		return err 
+		return err
 	}
 
 	client := &http.Client{}
@@ -76,7 +75,7 @@ func commandMapb (c *configUrl) error {
 		return err
 	}
 	defer res.Body.Close()
-	
+
 	var loc location
 
 	decoder := json.NewDecoder(res.Body)
@@ -92,3 +91,4 @@ func commandMapb (c *configUrl) error {
 	}
 	return nil
 }
+

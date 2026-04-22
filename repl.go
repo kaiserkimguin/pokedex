@@ -24,9 +24,10 @@ func startRepl() {
 		}
 	}
 }
+
 type configUrl struct {
-	next		*string
-	previous 	*string
+	next     *string
+	previous *string
 }
 
 type cliCommand struct {
