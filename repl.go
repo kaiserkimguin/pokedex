@@ -9,7 +9,7 @@ import (
 
 func startRepl() {
 	scanner := bufio.NewScanner(os.Stdin)
-	cfg := &configUrl{}
+	cfg := &configURL{}
 	for {
 		scanner.Scan()
 		prompt := scanner.Text()
@@ -25,7 +25,7 @@ func startRepl() {
 	}
 }
 
-type configUrl struct {
+type configURL struct {
 	next     *string
 	previous *string
 }
@@ -33,7 +33,7 @@ type configUrl struct {
 type cliCommand struct {
 	name        string
 	description string
-	callback    func(*configUrl) error
+	callback    func(*configURL) error
 }
 
 func getCommands() map[string]cliCommand {
@@ -48,11 +48,14 @@ func getCommands() map[string]cliCommand {
 			description: "Displays a help message",
 			callback:    commandHelp,
 		},
+		// Map Funktion, holt die nächsten 20 Werte von der Internetseite
 		"map": {
 			name:        "map",
 			description: "displays the names of the next 20 locations in the Pokemon world",
 			callback:    commandMap,
 		},
+		// Map backwards Funktion
+		// diese Funktion zieht die letzten 20 Orte. Dafür holt sie alle Werte der letzten Seite
 		"mapb": {
 			name:        "mapb",
 			description: "displays the names of the previous 20 locations in the Pokemon world",

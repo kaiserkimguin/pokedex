@@ -1,6 +1,10 @@
+// Package pokecache: this Package is designed to Setup the Cache in such a way, that Map entries
+// don't have to be reloaded consantly. The cache is checked on a time basis
+// and protected by a mutex. Functions that will use this Cache are 'Map'.
 package pokecache
 
 import (
+	// sync for mutexes and time to make the cache check time based.
 	"sync"
 	"time"
 )
@@ -52,4 +56,3 @@ func (c *Cache) reapLoop(interval time.Duration) {
 		c.cacheMutex.Unlock()
 	}
 }
-

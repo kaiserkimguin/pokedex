@@ -16,7 +16,7 @@ type location struct {
 	} `json:"results"`
 }
 
-func commandMap(c *configUrl) error {
+func commandMap(c *configURL) error {
 	url := "https://pokeapi.co/api/v2/location-area/"
 	if c.next != nil {
 		url = *c.next
@@ -52,7 +52,7 @@ func commandMap(c *configUrl) error {
 	return nil
 }
 
-func commandMapb(c *configUrl) error {
+func commandMapb(c *configURL) error {
 	var url string
 
 	if c.previous != nil {
@@ -91,4 +91,3 @@ func commandMapb(c *configUrl) error {
 	}
 	return nil
 }
-
