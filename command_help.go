@@ -4,7 +4,7 @@ import (
 	"fmt"
 )
 
-func commandHelp(c *configURL) error {
+func commandHelp(c *configURL, args []string) error {
 	cmdMap := getCommands()
 	fmt.Println("Welcome to the Pokedex!")
 	fmt.Print("Usage: \n\n\n")

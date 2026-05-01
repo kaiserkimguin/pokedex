@@ -23,11 +23,11 @@ func startRepl() {
 		command, exists := cmdMap[promptWords[0]]
 		if exists {
 			fmt.Println("Pokedex >", command.name)
-			command.callback(cfg)
-		} else {
-			fmt.Print("Command not found")
+			err := command.callback(cfg, promptWords[1:]); if err != nil {
+				fmt.Println("Command not found")
+			}
+			}
 		}
-	}
 }
 
 type configURL struct {
@@ -39,7 +39,7 @@ type configURL struct {
 type cliCommand struct {
 	name        string
 	description string
-	callback    func(*configURL) error
+	callback    func(cfg *configURL, args []string) error
 }
 
 func getCommands() map[string]cliCommand {
@@ -66,6 +66,13 @@ func getCommands() map[string]cliCommand {
 			name:        "mapb",
 			description: "displays the names of the previous 20 locations in the Pokemon world",
 			callback:    commandMapb,
+		},
+		// explore functions. Mit einem Ort als argv gibt sie alle fangbaren
+		// pokemon zurueck
+			"explore": {
+				name: "explore",
+				description: "displays all possible pokemon encounters of and area",
+				callback: commandExplore,
 		},
 	}
 }

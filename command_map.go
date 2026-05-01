@@ -5,7 +5,7 @@ import (
 )
 
 
-func commandMap(cfg *configURL) error {
+func commandMap(cfg *configURL, args []string) error {
 	locResp, err := cfg.pokeapiClient.ListLocations(cfg.next)
 	if err != nil {
 		return err
@@ -19,7 +19,7 @@ func commandMap(cfg *configURL) error {
 	return nil
 }
 
-func commandMapb(cfg *configURL) error {
+func commandMapb(cfg *configURL, args []string) error {
 	if nil == cfg.previous {
 		fmt.Println("you're on the first page")
 		return nil
