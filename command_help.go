@@ -4,10 +4,10 @@ import (
 	"fmt"
 )
 
-func commandHelp(c *configUrl) error {
+func commandHelp(c *configURL) error {
 	cmdMap := getCommands()
 	fmt.Println("Welcome to the Pokedex!")
-	fmt.Println("Usage: \n\n\n")
+	fmt.Print("Usage: \n\n\n")
 	for key, value := range cmdMap {
 		fmt.Printf("%s: %s\n", key, value.description)
 	}

@@ -5,11 +5,16 @@ import (
 	"fmt"
 	"os"
 	"strings"
+	"time"
+	"github.com/kaiserkimguin/pokedex/internal/pokeapi"
+
 )
 
 func startRepl() {
 	scanner := bufio.NewScanner(os.Stdin)
-	cfg := &configURL{}
+	cfg := &configURL{
+		pokeapiClient: pokeapi.NewClient(5 * time.Second, 5 * time.Second),
+	}
 	for {
 		scanner.Scan()
 		prompt := scanner.Text()
@@ -28,6 +33,7 @@ func startRepl() {
 type configURL struct {
 	next     *string
 	previous *string
+	pokeapiClient pokeapi.Client 
 }
 
 type cliCommand struct {
