@@ -14,6 +14,7 @@ func startRepl() {
 	scanner := bufio.NewScanner(os.Stdin)
 	cfg := &configURL{
 		pokeapiClient: pokeapi.NewClient(5 * time.Second, 5 * time.Second),
+		pokedex: make(map[string]pokeapi.FullPokemon),
 	}
 	for {
 		scanner.Scan()
@@ -31,9 +32,10 @@ func startRepl() {
 }
 
 type configURL struct {
-	next     *string
-	previous *string
-	pokeapiClient pokeapi.Client 
+	next     				*string
+	previous	 			*string
+	pokeapiClient 	pokeapi.Client
+	pokedex 				map[string]pokeapi.FullPokemon
 }
 
 type cliCommand struct {
@@ -69,11 +71,18 @@ func getCommands() map[string]cliCommand {
 		},
 		// explore functions. Mit einem Ort als argv gibt sie alle fangbaren
 		// pokemon zurueck
-			"explore": {
-				name: "explore",
-				description: "displays all possible pokemon encounters of and area",
-				callback: commandExplore,
+		"explore": {
+			name: 				"explore",
+			description:	"displays all possible pokemon encounters of and area",
+			callback: 		commandExplore,
 		},
+		// catch function, enables user to catch pokemon. Gives him a chacne 
+		// to catch a pokemon based on its experience
+		"catch": {
+			name: 				"catch",
+			description: 	"allows user to add pokemon to his pokedex",
+			callback: 		commandCatch,
+		},	
 	}
 }
 
