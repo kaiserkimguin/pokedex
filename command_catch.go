@@ -11,7 +11,7 @@ func commandCatch (cfg * configURL, args []string) error {
 	if len(args) == 0 {
 		return errors.New("Cannot use catch without pokemon argument")
 	}
-	fmt.Printf("Throwing a pokeball at %s...\n", args[0])
+	fmt.Printf("Throwing a Pokeball at %s...\n", args[0])
 	// get the Stats for the called argument 
 	pokeStat, err := cfg.pokeapiClient.GetPokemon(args[0])
 	if err != nil {
